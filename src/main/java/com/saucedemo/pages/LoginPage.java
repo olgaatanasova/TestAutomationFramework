@@ -1,5 +1,6 @@
 package com.saucedemo.pages;
 
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -23,5 +24,12 @@ public class LoginPage extends BaseSauceDemoPage {
 
         WebElement loginButton = driver().findElement(loginButtonLocator);
         loginButton.click();
+    }
+
+    private By lockedOutMessageLocator = By.cssSelector("h3[data-test='error']");
+    public void assertLockedOutMessage() {
+        String expectedMessage = "Epic sadface: Sorry, this user has been locked out.";
+        String actualMessage = driver().findElement(lockedOutMessageLocator).getText();
+        Assertions.assertEquals(expectedMessage, actualMessage, "The locked-out message is incorrect or not displayed.");
     }
 }
